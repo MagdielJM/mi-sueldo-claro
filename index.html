@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142b3b">
+<title>Mi Sueldo Claro | Clear Pay</title>
+<style>
+:root{--navy:#142b3b;--teal:#167c80;--cream:#f5f3ee;--ink:#20313b;--muted:#667780;--line:#dce3e2;--white:#fff;--gold:#e8b85b}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:25px 18px 22px}.wrap{max-width:1050px;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:800;letter-spacing:.04em;font-size:19px}.tag{color:#c7d9dc;font-size:13px}
+.lang{background:#fff;color:var(--navy);border:0;border-radius:999px;padding:9px 13px;font-weight:700;cursor:pointer}
+h1{font-size:clamp(27px,5vw,40px);line-height:1.12;margin:25px 0 8px}.lead{color:#d6e2e4;max-width:650px;margin:0}
+main{padding:24px 16px 50px}.tabs{display:flex;gap:8px;overflow:auto;margin:0 0 20px}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;white-space:nowrap;font-weight:650;cursor:pointer;color:var(--ink)}.tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.panel{display:none}.panel.active{display:block}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 5px 18px #18333d08}
+h2{font-size:21px;margin:0 0 5px}h3{font-size:16px;margin:0 0 13px}.sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 6px}.field input,.field select{width:100%;border:1px solid #cbd6d6;border-radius:10px;padding:12px;font:inherit;background:#fff;color:var(--ink)}.field input:focus,.field select:focus{outline:2px solid #8bc5c3;border-color:var(--teal)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}.primary,.secondary{border:0;border-radius:11px;padding:12px 17px;font-weight:750;cursor:pointer}.primary{background:var(--teal);color:#fff}.secondary{background:#eaf1f0;color:var(--navy)}
+.results{display:none}.results.show{display:block}.hero-result{background:var(--navy);color:#fff;border-radius:16px;padding:20px;margin-bottom:13px}.hero-result small{color:#c8d9dc}.amount{font-size:clamp(28px,5vw,38px);font-weight:850;letter-spacing:-.03em;margin-top:3px}.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:#f4f7f6;border-radius:12px;padding:13px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{font-size:18px}.note{font-size:13px;color:var(--muted);margin:12px 0 0}.warn{background:#fff7e6;border:1px solid #f0d99e;padding:13px;border-radius:12px;font-size:13px;color:#5d4b27;margin-top:14px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:480px}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line)}th{font-size:12px;color:var(--muted)}td strong{font-size:17px}
+footer{padding:22px 16px;background:#e9eeeb;color:#53646a;font-size:12px}footer a{color:var(--teal)}.hidden{display:none!important}
+@media(max-width:620px){.grid,.result-grid{grid-template-columns:1fr}.card{padding:16px}.top{align-items:flex-start}.tag{max-width:190px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <div class="top"><div><div class="brand">MI SUELDO CLARO</div><div class="tag">Herramientas laborales para México · Work tools for Mexico</div></div><button class="lang" id="langBtn" type="button">ENGLISH</button></div>
+ <h1 data-i="title">Entiende cuánto te corresponde.</h1><p class="lead" data-i="lead">Calculadoras laborales sencillas, transparentes y bilingües. Tus datos se procesan en este dispositivo.</p>
+</div></header>
+<main class="wrap">
+ <nav class="tabs" aria-label="Herramientas">
+  <button class="tab active" data-tab="salary" data-i="tabSalary">Sueldo</button>
+  <button class="tab" data-tab="benefits" data-i="tabBenefits">Prestaciones</button>
+  <button class="tab" data-tab="settlement" data-i="tabSettlement">Finiquito estimado</button>
+  <button class="tab" data-tab="compare" data-i="tabCompare">Comparar empleos</button>
+ </nav>
+
+ <section class="panel active" id="salary">
+  <div class="card"><h2 data-i="salaryTitle">Convertir mi sueldo</h2><p class="sub" data-i="salaryDesc">Ingresa cuánto recibes y cada cuándo te pagan.</p>
+   <div class="grid">
+    <div class="field"><label data-i="payAmount">Cantidad que recibes (MXN)</label><input id="payAmount" type="number" min="0" step="0.01" value="4200"></div>
+    <div class="field"><label data-i="payFrequency">Frecuencia de pago</label><select id="payFrequency"><option value="daily" data-i="daily">Diario</option><option value="weekly" data-i="weekly">Semanal</option><option value="biweekly" selected data-i="biweekly">Quincenal (15 días)</option><option value="monthly" data-i="monthly">Mensual</option></select></div>
+   </div>
+   <div class="actions"><button class="primary" id="calcSalary" data-i="calculate">Calcular</button></div>
+  </div>
+  <div class="results" id="salaryResults" aria-live="polite"></div>
+ </section>
+
+ <section class="panel" id="benefits">
+  <div class="card"><h2 data-i="benefitsTitle">Aguinaldo, vacaciones y prima vacacional</h2><p class="sub" data-i="benefitsDesc">Estimación de prestaciones mínimas de ley. Puedes cambiar los días de aguinaldo si tu contrato ofrece más.</p>
+   <div class="grid">
+    <div class="field"><label data-i="dailySalary">Salario diario (MXN)</label><input id="bDaily" type="number" min="0" step=".01" value="323"></div>
+    <div class="field"><label data-i="hireDate">Fecha de ingreso</label><input id="bHire" type="date"></div>
+    <div class="field"><label data-i="asOf">Calcular al día</label><input id="bAsOf" type="date"></div>
+    <div class="field"><label data-i="bonusDays">Días de aguinaldo al año</label><input id="bBonus" type="number" min="1" max="365" value="15"></div>
+    <div class="field"><label data-i="premium">Prima vacacional (%)</label><input id="bPremium" type="number" min="0" max="100" value="25"></div>
+   </div>
+   <div class="actions"><button class="primary" id="calcBenefits" data-i="calculate">Calcular</button></div>
+  </div>
+  <div class="results" id="benefitsResults" aria-live="polite"></div>
+ </section>
+
+ <section class="panel" id="settlement">
+  <div class="card"><h2 data-i="settleTitle">Finiquito estimado</h2><p class="sub" data-i="settleDesc">Estimación orientativa de conceptos proporcionales. No es una liquidación por despido injustificado.</p>
+   <div class="grid">
+    <div class="field"><label data-i="dailySalary">Salario diario (MXN)</label><input id="sDaily" type="number" min="0" step=".01" value="323"></div>
+    <div class="field"><label data-i="hireDate">Fecha de ingreso</label><input id="sHire" type="date"></div>
+    <div class="field"><label data-i="endDate">Fecha de baja / último día</label><input id="sEnd" type="date"></div>
+    <div class="field"><label data-i="bonusDays">Días de aguinaldo al año</label><input id="sBonus" type="number" min="1" max="365" value="15"></div>
+    <div class="field"><label data-i="premium">Prima vacacional (%)</label><input id="sPremium" type="number" min="0" max="100" value="25"></div>
+    <div class="field"><label data-i="unpaidDays">Días trabajados no pagados</label><input id="sUnpaid" type="number" min="0" step=".5" value="0"></div>
+    <div class="field"><label data-i="unusedDays">Vacaciones anteriores pendientes (días)</label><input id="sUnused" type="number" min="0" step=".5" value="0"></div>
+   </div>
+   <div class="actions"><button class="primary" id="calcSettlement" data-i="calculate">Calcular</button></div>
+  </div>
+  <div class="results" id="settlementResults" aria-live="polite"></div>
+ </section>
+
+ <section class="panel" id="compare">
+  <div class="card"><h2 data-i="compareTitle">Comparar dos ofertas laborales</h2><p class="sub" data-i="compareDesc">Compara sueldo bruto y prestaciones anuales estimadas.</p>
+   <div class="grid">
+    <div><h3 data-i="jobA">Empleo A</h3>
+     <div class="field"><label data-i="monthlyGross">Sueldo mensual bruto (MXN)</label><input id="aSalary" type="number" min="0" value="12000"></div>
+     <div class="field"><label data-i="bonusDays">Días de aguinaldo al año</label><input id="aBonus" type="number" min="0" value="15"></div>
+     <div class="field"><label data-i="vacationDays">Días de vacaciones al año</label><input id="aVacation" type="number" min="0" value="12"></div>
+     <div class="field"><label data-i="premium">Prima vacacional (%)</label><input id="aPremium" type="number" min="0" value="25"></div>
+    </div>
+    <div><h3 data-i="jobB">Empleo B</h3>
+     <div class="field"><label data-i="monthlyGross">Sueldo mensual bruto (MXN)</label><input id="bSalary" type="number" min="0" value="14000"></div>
+     <div class="field"><label data-i="bonusDays">Días de aguinaldo al año</label><input id="bBonus" type="number" min="0" value="15"></div>
+     <div class="field"><label data-i="vacationDays">Días de vacaciones al año</label><input id="bVacation" type="number" min="0" value="12"></div>
+     <div class="field"><label data-i="premium">Prima vacacional (%)</label><input id="bPremium" type="number" min="0" value="25"></div>
+    </div>
+   </div>
+   <div class="actions"><button class="primary" id="calcCompare" data-i="compareBtn">Comparar ofertas</button></div>
+  </div>
+  <div class="results" id="compareResults" aria-live="polite"></div>
+ </section>
+</main>
+<footer><div class="wrap"><strong data-i="disclaimerTitle">Aviso importante</strong><p data-i="disclaimer">Esta herramienta ofrece estimaciones informativas, no asesoría legal, fiscal ni laboral. Los resultados pueden variar por salario integrado, contrato, prestaciones superiores, ausencias, comisiones, pagos pendientes y circunstancias de la separación. Para un caso concreto, consulta a PROFEDET o a una persona especialista. No ingreses datos personales sensibles. Los cálculos se realizan localmente en tu navegador.</p><p>Mi Sueldo Claro · Prototipo v0.1 · <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf" target="_blank" rel="noopener">Ley Federal del Trabajo</a> · <a href="https://www.profedet.gob.mx/" target="_blank" rel="noopener">PROFEDET</a></p></div></footer>
+<script>
+const $=id=>document.getElementById(id);
+const today=new Date(); const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
+$('bAsOf').value=iso(today);$('sEnd').value=iso(today);
+let lang='es';
+const tr={
+es:{title:'Entiende cuánto te corresponde.',lead:'Calculadoras laborales sencillas, transparentes y bilingües. Tus datos se procesan en este dispositivo.',tabSalary:'Sueldo',tabBenefits:'Prestaciones',tabSettlement:'Finiquito estimado',tabCompare:'Comparar empleos',salaryTitle:'Convertir mi sueldo',salaryDesc:'Ingresa cuánto recibes y cada cuándo te pagan.',payAmount:'Cantidad que recibes (MXN)',payFrequency:'Frecuencia de pago',daily:'Diario',weekly:'Semanal',biweekly:'Quincenal (15 días)',monthly:'Mensual',calculate:'Calcular',dailyOut:'Salario diario estimado',weeklyOut:'Equivalente semanal',biweeklyOut:'Equivalente quincenal',monthlyOut:'Equivalente mensual',annualOut:'Equivalente anual',benefitsTitle:'Aguinaldo, vacaciones y prima vacacional',benefitsDesc:'Estimación de prestaciones mínimas de ley. Puedes cambiar los días de aguinaldo si tu contrato ofrece más.',dailySalary:'Salario diario (MXN)',hireDate:'Fecha de ingreso',asOf:'Calcular al día',bonusDays:'Días de aguinaldo al año',premium:'Prima vacacional (%)',bonusEstimate:'Aguinaldo proporcional estimado',vacationEntitlement:'Días de vacaciones por año de servicio',vacationAccrued:'Vacaciones proporcionales del ciclo actual',vacationPremium:'Prima vacacional estimada',seniority:'Antigüedad',years:'años',days:'días',settleTitle:'Finiquito estimado',settleDesc:'Estimación orientativa de conceptos proporcionales. No es una liquidación por despido injustificado.',endDate:'Fecha de baja / último día',unpaidDays:'Días trabajados no pagados',unusedDays:'Vacaciones anteriores pendientes (días)',unpaidWages:'Salarios pendientes',vacationPay:'Pago de vacaciones pendientes',settlementTotal:'Total estimado de finiquito',notIncluded:'No incluye indemnización constitucional, salarios caídos, prima de antigüedad u otros conceptos que podrían corresponder según el motivo de separación. No se descuentan impuestos ni adeudos.',compareTitle:'Comparar dos ofertas laborales',compareDesc:'Compara sueldo bruto y prestaciones anuales estimadas.',jobA:'Empleo A',jobB:'Empleo B',monthlyGross:'Sueldo mensual bruto (MXN)',vacationDays:'Días de vacaciones al año',compareBtn:'Comparar ofertas',annualBase:'Sueldo anual',annualBonus:'Aguinaldo anual',annualPremium:'Prima vacacional anual estimada',annualTotal:'Compensación anual estimada',winner:'Mayor estimación anual',disclaimerTitle:'Aviso importante',disclaimer:'Esta herramienta ofrece estimaciones informativas, no asesoría legal, fiscal ni laboral. Los resultados pueden variar por salario integrado, contrato, prestaciones superiores, ausencias, comisiones, pagos pendientes y circunstancias de la separación. Para un caso concreto, consulta a PROFEDET o a una persona especialista. No ingreses datos personales sensibles. Los cálculos se realizan localmente en tu navegador.',invalid:'Revisa los datos y las fechas ingresadas.',currency:'MXN',asOfLabel:'Fecha de cálculo',basedOn:'Cálculo orientativo con los datos ingresados.'},
+en:{title:'Understand what you may be owed.',lead:'Simple, transparent, bilingual employment calculators. Your data is processed on this device.',tabSalary:'Pay',tabBenefits:'Benefits',tabSettlement:'Estimated final pay',tabCompare:'Compare jobs',salaryTitle:'Convert my pay',salaryDesc:'Enter how much you receive and how often you are paid.',payAmount:'Amount received (MXN)',payFrequency:'Pay frequency',daily:'Daily',weekly:'Weekly',biweekly:'Every two weeks (15 days)',monthly:'Monthly',calculate:'Calculate',dailyOut:'Estimated daily pay',weeklyOut:'Weekly equivalent',biweeklyOut:'Biweekly equivalent',monthlyOut:'Monthly equivalent',annualOut:'Annual equivalent',benefitsTitle:'Christmas bonus, vacation and vacation premium',benefitsDesc:'Estimate of statutory minimum benefits. Change annual bonus days if your contract provides more.',dailySalary:'Daily pay (MXN)',hireDate:'Hire date',asOf:'Calculate as of',bonusDays:'Annual bonus days',premium:'Vacation premium (%)',bonusEstimate:'Estimated proportional Christmas bonus',vacationEntitlement:'Vacation days per service year',vacationAccrued:'Proportional vacation in current cycle',vacationPremium:'Estimated vacation premium',seniority:'Length of service',years:'years',days:'days',settleTitle:'Estimated final pay',settleDesc:'Indicative estimate of proportional items. This is not an unfair-dismissal severance calculation.',endDate:'Separation / last day',unpaidDays:'Unpaid days worked',unusedDays:'Unused prior vacation days',unpaidWages:'Unpaid wages',vacationPay:'Payment for unused vacation',settlementTotal:'Estimated final-pay total',notIncluded:'Does not include constitutional severance, back pay, seniority premium or other items that may apply depending on the reason for separation. Taxes and debts are not deducted.',compareTitle:'Compare two job offers',compareDesc:'Compare gross pay and estimated annual benefits.',jobA:'Job A',jobB:'Job B',monthlyGross:'Gross monthly pay (MXN)',vacationDays:'Vacation days per year',compareBtn:'Compare offers',annualBase:'Annual salary',annualBonus:'Annual Christmas bonus',annualPremium:'Estimated annual vacation premium',annualTotal:'Estimated annual compensation',winner:'Higher annual estimate',disclaimerTitle:'Important notice',disclaimer:'This tool provides informational estimates, not legal, tax or employment advice. Results may vary based on integrated salary, contract, enhanced benefits, absences, commissions, unpaid amounts and the circumstances of separation. For a specific case, consult PROFEDET or a qualified professional. Do not enter sensitive personal data. Calculations run locally in your browser.',invalid:'Please check the entered values and dates.',currency:'MXN',asOfLabel:'Calculation date',basedOn:'Indicative calculation based on the information entered.'}
+};
+function t(k){return tr[lang][k]||k}
+function money(n){return new Intl.NumberFormat(lang==='es'?'es-MX':'en-US',{style:'currency',currency:'MXN'}).format(Number.isFinite(n)?n:0)}
+function num(id){return Math.max(0,Number($(id).value)||0)}
+function date(id){if(!$ (id).value)return null;const [y,m,d]=$ (id).value.split('-').map(Number);return new Date(y,m-1,d)}
+function diffDays(a,b){return Math.max(0,Math.floor((b-a)/86400000))}
+function addYears(d,n){const x=new Date(d);x.setFullYear(x.getFullYear()+n);return x}
+function fullYears(start,end){let y=end.getFullYear()-start.getFullYear();if(addYears(start,y)>end)y--;return Math.max(0,y)}
+function vacationDays(years){if(years<=0)return 12;if(years<=5)return 10+2*years;return 20+2*Math.floor((years-1)/5)}
+function cycleStart(hire,end){let y=fullYears(hire,end);return addYears(hire,y)}
+function fmt(n){return money(n)}
+function show(id,html){$(id).innerHTML=html;$(id).classList.add('show')}
+function metric(label,value){return `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`}
+function hero(label,value){return `<div class="hero-result"><small>${label}</small><div class="amount">${value}</div></div>`}
+function error(id){show(id,`<div class="warn">${t('invalid')}</div>`)}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active')}));
+$('langBtn').onclick=()=>{lang=lang==='es'?'en':'es';document.documentElement.lang=lang;$('langBtn').textContent=lang==='es'?'ENGLISH':'ESPAÑOL';document.querySelectorAll('[data-i]').forEach(el=>{const k=el.dataset.i;if(tr[lang][k])el.textContent=tr[lang][k]});};
+$('calcSalary').onclick=()=>{let amount=num('payAmount'),freq=$('payFrequency').value;if(!amount){error('salaryResults');return}let daily=amount/({daily:1,weekly:7,biweekly:15,monthly:30}[freq]);show('salaryResults',hero(t('dailyOut'),fmt(daily))+`<div class="result-grid">${metric(t('weeklyOut'),fmt(daily*7))}${metric(t('biweeklyOut'),fmt(daily*15))}${metric(t('monthlyOut'),fmt(daily*30))}${metric(t('annualOut'),fmt(daily*365))}</div><p class="note">${t('basedOn')}</p>`)};
+function benefits(daily,hire,asof,bonus,premium){if(!hire||!asof||asof<hire||!daily)return null;let daysYear=diffDays(new Date(asof.getFullYear(),0,1),asof)+1;let yearStart=new Date(asof.getFullYear(),0,1);if(hire>yearStart)yearStart=hire;let employedYear=diffDays(yearStart,asof)+1;let bonusAmt=daily*bonus*employedYear/(asof.getFullYear()%4===0?366:365);let years=fullYears(hire,asof);let cycle=cycleStart(hire,asof);let cycleDays=diffDays(cycle,asof);let annualVac=vacationDays(years);let vacAccrued=annualVac*cycleDays/(365.25);return {bonusAmt,years,annualVac,vacAccrued,vacPremium:daily*vacAccrued*premium/100,cycleDays,employedYear}}
+$('calcBenefits').onclick=()=>{let r=benefits(num('bDaily'),date('bHire'),date('bAsOf'),num('bBonus'),num('bPremium'));if(!r){error('benefitsResults');return}show('benefitsResults',hero(t('bonusEstimate'),fmt(r.bonusAmt))+`<div class="result-grid">${metric(t('seniority'),r.years+' '+t('years'))}${metric(t('vacationEntitlement'),r.annualVac+' '+t('days'))}${metric(t('vacationAccrued'),r.vacAccrued.toFixed(2)+' '+t('days'))}${metric(t('vacationPremium'),fmt(r.vacPremium))}</div><p class="note">${t('basedOn')}</p>`)}
+$('calcSettlement').onclick=()=>{let daily=num('sDaily'),hire=date('sHire'),end=date('sEnd'),bonus=num('sBonus'),premium=num('sPremium');if(!daily||!hire||!end||end<hire){error('settlementResults');return}let r=benefits(daily,hire,end,bonus,premium);let unpaid=daily*num('sUnpaid');let vacDays=r.vacAccrued+num('sUnused');let vacPay=daily*vacDays;let vacPrem=vacPay*premium/100;let total=unpaid+r.bonusAmt+vacPay+vacPrem;show('settlementResults',hero(t('settlementTotal'),fmt(total))+`<div class="result-grid">${metric(t('unpaidWages'),fmt(unpaid))}${metric(t('bonusEstimate'),fmt(r.bonusAmt))}${metric(t('vacationPay'),fmt(vacPay))}${metric(t('vacationPremium'),fmt(vacPrem))}</div><div class="warn">${t('notIncluded')}</div>`)}
+function offer(prefix){let monthly=num(prefix+'Salary'),daily=monthly/30,bonus=num(prefix+'Bonus'),vac=num(prefix+'Vacation'),prem=num(prefix+'Premium');let base=monthly*12,bonusAmt=daily*bonus,premiumAmt=daily*vac*prem/100;return {base,bonusAmt,premiumAmt,total:base+bonusAmt+premiumAmt}}
+$('calcCompare').onclick=()=>{let a=offer('a'),b=offer('b');let winner=a.total===b.total?'—':a.total>b.total?t('jobA'):t('jobB');show('compareResults',`<div class="table-wrap"><table><thead><tr><th></th><th>${t('jobA')}</th><th>${t('jobB')}</th></tr></thead><tbody><tr><td>${t('annualBase')}</td><td>${fmt(a.base)}</td><td>${fmt(b.base)}</td></tr><tr><td>${t('annualBonus')}</td><td>${fmt(a.bonusAmt)}</td><td>${fmt(b.bonusAmt)}</td></tr><tr><td>${t('annualPremium')}</td><td>${fmt(a.premiumAmt)}</td><td>${fmt(b.premiumAmt)}</td></tr><tr><td><strong>${t('annualTotal')}</strong></td><td><strong>${fmt(a.total)}</strong></td><td><strong>${fmt(b.total)}</strong></td></tr></tbody></table></div>${hero(t('winner'),winner)}<p class="note">${t('basedOn')}</p>`)};
+</script>
+</body></html>
